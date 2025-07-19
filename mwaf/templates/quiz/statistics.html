@@ -1,0 +1,66 @@
+<!-- templates/statistics.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Статистика</title>
+    <style>
+        .horizontal-radios {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .horizontal-radios div {
+            display: flex;
+            align-items: center;
+        }
+        .question {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <h1>Данные по участникам и анкетам</h1>
+    {% if not is_admin %}
+        <h2>Неавторизованный доступ запрещен</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="question">
+                    <h3>{{ field.label }}</h3>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button type="submit">Отправить</button>
+        </form>
+    {% else %}
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Пользователь</th>
+                    <th>Почта</th>
+                    <th>Тест</th>
+                    <th>Дата</th>
+                    <th>Якорь</th>
+                    <th>Средний балл</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in stats %}
+                    <tr>
+                        <td>{{ item.username }}</td>
+                        <td>{{ item.email }}</td>
+                        <td>{{ item.quiz }}</td>
+                        <td>{{ item.passed_at|date:"d.m.Y H:i" }}</td>
+                        <td>{{ item.anchor }}</td>
+                        <td>{{ item.anchors_avg|floatformat:2 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>
