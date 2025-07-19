@@ -1,0 +1,41 @@
+<!-- templates/survey.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Опрос</title>
+    <style>
+        .horizontal-radios {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .horizontal-radios div {
+            display: flex;
+            align-items: center;
+        }
+        .question {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <h1>Тест "Якоря карьеры"</h1>
+    <h2>Для оценки каждого утверждения используйте 10ти бальную шкалу ответов.</h2>
+    <h2>Варианты ответов: 1 – абсолютно не важно, 2, 3, 4, 5, 6, 7, 8, 9, 10 – исключительно важно</h2>
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="question">
+                <h3>{{ field.label }}</h3>
+                {{ field }}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Отправить</button>
+    </form>
+</body>
+</html>

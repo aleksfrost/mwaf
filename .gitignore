@@ -1,0 +1,4 @@
+.venv/
+.mypy_cache/
+/mwaf/Querries/
+**/__pycache__/

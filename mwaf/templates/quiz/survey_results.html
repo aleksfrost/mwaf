@@ -1,0 +1,18 @@
+<!-- templates/survey_results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результаты опроса</title>
+</head>
+<body>
+    <h1>Тест "Якоря карьеры" пройден</h1>
+    <h2>Результаты Ваших ответов:</h2>
+    <ul>
+        {% for question_id, rating in results.items %}
+            <li>
+                <strong>{{ question_id }}</strong>: {{ rating }} из 10
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
